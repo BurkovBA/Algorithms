@@ -1,21 +1,27 @@
 function dijkstra (graph, origin, destination) {
-  let stack = [origin];
-  let reachedNodes = {}; // {node: distance} mapping
+  let distances = {}; // {node: distance}
 
-  while (true) {
-    let node = stack.pop();
+  let reachableEdges = origin.edges.slice();
+  let distance = 0; // this distance will monotonously increase
+  while (!distances.hasOwnProperty(destination)) {
 
-    let nearestNode = node.edges.reduce((minimum, current) => {
-      if (!reachedNodes.hasOwnProperty(nearestNode)) {
+    // find the closest reachable nearestNode, increase the distance
+    let nearestEdge = stack.reduce((minimum, current) => {
+      if (!distances.hasOwnProperty(current.destination)) {
         return current.distance < minimum.distance ? current : minimum;
       } else {
         return minimum;
       }
-    }, node.edges[0]);
+    }, reachableEdges[0]);
+
+    distance = distance + nearestEdge.distance;
+
+    // add edges, starting at nearestEdge.destination, to reachableEdges
+    nearestEdge.destination.edges.map((edge) => {
+      if (!distances.hasOwnProperty(edge.destination)) {
+        reachableEdges.push(edge);
+      }
+    });
 
   }
-}
-
-function findMinDistance () {
-
 }

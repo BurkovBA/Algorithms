@@ -5,7 +5,7 @@ function dijkstra (graph, origin, destination) {
   let distance = 0; // this distance will monotonously increase
   while (!distances.hasOwnProperty(destination)) {
 
-    // find the closest reachable nearestNode, increase the distance
+    // find the closest reachable nearestEdge, increase the distance
     let nearestEdge = stack.reduce((minimum, current) => {
       if (!distances.hasOwnProperty(current.destination)) {
         return current.distance < minimum.distance ? current : minimum;
